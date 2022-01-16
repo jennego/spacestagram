@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
+import ImageGrid from "./components/imageGrid";
+import { NasaData } from "./components/query";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function App() {
+const api_key = process.env.REACT_APP_NASA_KEY;
+
+const App = () => {
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setIsLoading(true);
+    NasaData.getCuriosityMastPhotos()
+      .then((data) => {
+        setData({ data });
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setHasError(true);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const dark = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={dark}>
+      <div className="App">
+        <h1 className="title"> Spacestagram: Mars</h1>
+
+        {data.data !== undefined && isLoading === false ? (
+          <ImageGrid images={data.data.photos} />
+        ) : (
+          "no data"
+        )}
+      </div>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
