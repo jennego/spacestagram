@@ -25,7 +25,7 @@ const ImageItem = (props) => {
 
   return (
     <Card elevation={3} className="image-item" key={props.image.id}>
-      <div style={{ background: "#000" }}>
+      <div>
         <img
           src={props.image.img_src}
           className="image-size"
@@ -60,13 +60,13 @@ const ImageItem = (props) => {
               }}
             >
               <Avatar src={curiosity} alt={props.image.rover.name} />
-              <div>{props.image.rover.name}</div>
+              <div className="avatar-name">{props.image.rover.name}</div>
             </div>
-            {props.image.camera.full_name} on {props.image.rover.name}
           </Grid>
           <Grid item className="photo-date">
             Earth Date: {props.image.earth_date} <br />
-            Sol:{props.image.sol}
+            Sol:{props.image.sol} <br />
+            Camera:{props.image.camera.full_name}
           </Grid>
         </Grid>
       </CardContent>

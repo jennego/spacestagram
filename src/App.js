@@ -6,6 +6,9 @@ import { NasaData } from "./components/query";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
+import Favorite from "@mui/icons-material/Favorite";
+import { padding } from "@mui/system";
+
 const api_key = process.env.REACT_APP_NASA_KEY;
 
 const App = () => {
@@ -14,6 +17,7 @@ const App = () => {
   const [hasError, setHasError] = useState(false);
   const [page, setPage] = useState(1);
   const [favs, setFavs] = useState([]);
+  const [showFavs, setShowFavs] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -60,9 +64,28 @@ const App = () => {
     <ThemeProvider theme={dark}>
       <div className="App">
         <h1 className="title"> Spacestagram: Mars</h1>
-        <Button onClick={() => localStorage.clear()}>
-          Clear local storage
-        </Button>
+
+        <div
+          style={{
+            padding: "1rem",
+          }}
+        >
+          {showFavs ? (
+            <div>
+              <Button variant="outlined" onClick={() => setShowFavs(false)}>
+                Show All
+              </Button>
+            </div>
+          ) : (
+            <Button
+              startIcon={<Favorite />}
+              variant="outlined"
+              onClick={() => setShowFavs(true)}
+            >
+              Show Favs
+            </Button>
+          )}
+        </div>
 
         {hasError ? (
           <p> Sorry! There seems to be an error getting photos.</p>
@@ -76,34 +99,55 @@ const App = () => {
             <p> Loading... </p>
           </div>
         ) : data.data !== undefined && isLoading === false ? (
-          <ImageGrid
-            images={data.data.photos}
-            loadMore={() => setPage(page + 1)}
-            addFav={addFav}
-            removeFav={removeFav}
-            favs={favs}
-          />
+          showFavs ? (
+            <div>
+              <ImageGrid
+                images={favs}
+                addFav={addFav}
+                removeFav={removeFav}
+                favs={favs}
+              />
+              <Button
+                variant="outlined"
+                color="warning"
+                onClick={() => localStorage.clear()}
+              >
+                Clear all favs
+              </Button>
+            </div>
+          ) : (
+            <ImageGrid
+              images={data.data.photos}
+              addFav={addFav}
+              removeFav={removeFav}
+              favs={favs}
+            />
+          )
         ) : (
           <p>Oops we couldn't find the photos! ☹️</p>
         )}
       </div>
 
-      <div className="navigation">
-        {page > 1 ? (
-          <Button variant="outlined" onClick={() => setPage(page - 1)}>
-            Previous Page
+      {showFavs === false ? (
+        <div className="navigation">
+          {page > 1 ? (
+            <Button variant="outlined" onClick={() => setPage(page - 1)}>
+              Previous Page
+            </Button>
+          ) : (
+            <Button variant="outlined" disabled>
+              {" "}
+              Previous Page{" "}
+            </Button>
+          )}
+          <div>Page {page}</div>
+          <Button variant="outlined" onClick={() => setPage(page + 1)}>
+            Next Page
           </Button>
-        ) : (
-          <Button variant="outlined" disabled>
-            {" "}
-            Previous Page{" "}
-          </Button>
-        )}
-        <div>Page {page}</div>
-        <Button variant="outlined" onClick={() => setPage(page + 1)}>
-          Next Page
-        </Button>
-      </div>
+        </div>
+      ) : (
+        ""
+      )}
     </ThemeProvider>
   );
 };

@@ -45,7 +45,7 @@ h5 {
 }
 
 .image-size {
-  height: 40vh;
+  height: 41vh;
   max-width: 90vw;
   object-fit: contain;
 }
@@ -73,6 +73,11 @@ h5 {
 
 .MuiPaper-rounded.image-item {
   border-radius: 20px !important;
+}
+
+.avatar-name {
+  font-size: 20px;
+  padding-left: 5px;
 }
 
 .photo-date {
