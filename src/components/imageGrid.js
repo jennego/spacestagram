@@ -3,30 +3,16 @@ import Container from "@mui/material/Container";
 import ImageItem from "./imageItem";
 import Button from "@mui/material/Button";
 
-const ImageGrid = (props) => {
+const ImageGrid = (props, { addFav }) => {
   return (
     <div>
       <Container>
         <Grid container spacing={2}>
           {props.images.map((photo) => (
-            <Grid item>
-              <ImageItem image={photo} />
+            <Grid item key={photo.id}>
+              <ImageItem image={photo} addFav={props.addFav} {...props} />
             </Grid>
           ))}
-
-          <Grid
-            item
-            style={{
-              width: "40vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button variant="outlined" onClick={props.loadMore}>
-              Next Page
-            </Button>
-          </Grid>
         </Grid>
       </Container>
     </div>

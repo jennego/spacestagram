@@ -69,3 +69,9 @@ h5 {
 .photo-date {
   text-align: right;
 }
+
+.navigation {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+}

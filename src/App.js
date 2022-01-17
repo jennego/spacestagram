@@ -34,6 +34,12 @@ const App = () => {
     },
   });
 
+  const addFav = (fav) => {
+    setFavs((favs) => [...favs, fav]);
+  };
+
+  console.log(favs);
+
   return (
     <ThemeProvider theme={dark}>
       <div className="App">
@@ -54,16 +60,23 @@ const App = () => {
           <ImageGrid
             images={data.data.photos}
             loadMore={() => setPage(page + 1)}
+            addFav={addFav}
+            favs={favs}
           />
         ) : (
           <p>Oops we couldn't find the photos! ☹️</p>
         )}
       </div>
 
-      <Button variant="outlined" onClick={() => setPage(page + 1)}>
-        Load More
-      </Button>
-      {page}
+      <div className="navigation">
+        <Button variant="outlined" onClick={() => setPage(page + 1)}>
+          Previous Page
+        </Button>
+        <div>Page {page}</div>
+        <Button variant="outlined" onClick={() => setPage(page + 1)}>
+          Next Page
+        </Button>
+      </div>
     </ThemeProvider>
   );
 };
