@@ -6,8 +6,9 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import curiosity from "../avatars/rover-c.jpg";
 
-const ImageItem = (props, { addFav }) => {
+const ImageItem = (props) => {
   let isFaved = (id) => {
     if (props.favs.some((image) => image["id"] === id)) {
       return true;
@@ -16,13 +17,14 @@ const ImageItem = (props, { addFav }) => {
     }
   };
 
+  const useRoverImage = (rover) => {
+    if (rover === "") {
+      return curiosity;
+    }
+  };
+
   return (
-    <Card
-      elevation={3}
-      className="image-item"
-      outlined={true}
-      key={props.image.id}
-    >
+    <Card elevation={3} className="image-item" key={props.image.id}>
       <div style={{ background: "#000" }}>
         <img
           src={props.image.img_src}
@@ -31,17 +33,14 @@ const ImageItem = (props, { addFav }) => {
         />
       </div>
 
-      {/* <CardMedia
-          component="img"
-          image={props.image.img_src}
-          className="image-size"
-          alt={`mars photo taken by the ${props.image.rover.name} on ${props.image.earth_date}`}
-        /> */}
       <div className="overlay-container">
         <div className="overlay-icon">
-          {console.log(isFaved(props.image.id))}
           {isFaved(props.image.id) ? (
-            <FavoriteIcon fontSize="large" style={{ color: "red" }} />
+            <FavoriteIcon
+              fontSize="large"
+              style={{ color: "red" }}
+              onClick={() => props.removeFav(props.image)}
+            />
           ) : (
             <FavoriteBorderIcon
               fontSize="large"
@@ -54,6 +53,15 @@ const ImageItem = (props, { addFav }) => {
       <CardContent>
         <Grid container spacing={2} className="info">
           <Grid item>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Avatar src={curiosity} alt={props.image.rover.name} />
+              <div>{props.image.rover.name}</div>
+            </div>
             {props.image.camera.full_name} on {props.image.rover.name}
           </Grid>
           <Grid item className="photo-date">

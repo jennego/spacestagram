@@ -28,6 +28,16 @@ const App = () => {
       });
   }, [page]);
 
+  useEffect(() => {
+    if (localStorage.getItem("favs") !== null) {
+      setFavs(JSON.parse(localStorage.getItem("favs")));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favs", JSON.stringify(favs));
+  }, [favs]);
+
   const dark = createTheme({
     palette: {
       mode: "dark",
@@ -36,6 +46,12 @@ const App = () => {
 
   const addFav = (fav) => {
     setFavs((favs) => [...favs, fav]);
+    // localStorage.setItem("favs", JSON.stringify(favs));
+  };
+
+  const removeFav = (fav) => {
+    setFavs(favs.filter((item) => item.id !== fav.id));
+    // localStorage.setItem("favs", JSON.stringify(favs));
   };
 
   console.log(favs);
@@ -44,6 +60,9 @@ const App = () => {
     <ThemeProvider theme={dark}>
       <div className="App">
         <h1 className="title"> Spacestagram: Mars</h1>
+        <Button onClick={() => localStorage.clear()}>
+          Clear local storage
+        </Button>
 
         {hasError ? (
           <p> Sorry! There seems to be an error getting photos.</p>
@@ -61,6 +80,7 @@ const App = () => {
             images={data.data.photos}
             loadMore={() => setPage(page + 1)}
             addFav={addFav}
+            removeFav={removeFav}
             favs={favs}
           />
         ) : (
@@ -69,9 +89,16 @@ const App = () => {
       </div>
 
       <div className="navigation">
-        <Button variant="outlined" onClick={() => setPage(page + 1)}>
-          Previous Page
-        </Button>
+        {page > 1 ? (
+          <Button variant="outlined" onClick={() => setPage(page - 1)}>
+            Previous Page
+          </Button>
+        ) : (
+          <Button variant="outlined" disabled>
+            {" "}
+            Previous Page{" "}
+          </Button>
+        )}
         <div>Page {page}</div>
         <Button variant="outlined" onClick={() => setPage(page + 1)}>
           Next Page

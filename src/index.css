@@ -44,14 +44,9 @@ h5 {
   z-index: 999;
 }
 
-/* .overlay-icon {
-  display: flex;
-  justify-self: flex-end;
-} */
-
 .image-size {
   height: 40vh;
-  /* max-width: 50vw; */
+  max-width: 90vw;
   object-fit: contain;
 }
 
@@ -60,6 +55,16 @@ h5 {
   border: 1px #fff solid;
   border-radius: 85px;
   position: relative;
+}
+/* animation: fadeInOpacity 0.9s ease-in; */
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* .image-item:hover {
