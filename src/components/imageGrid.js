@@ -14,15 +14,16 @@ const ImageGrid = (props) => {
             </Grid>
           ))}
 
-          <Grid item>
-            <Button
-              variant="outlined"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+          <Grid
+            item
+            style={{
+              width: "40vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button variant="outlined" onClick={props.loadMore}>
               Next Page
             </Button>
           </Grid>

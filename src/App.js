@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import ImageGrid from "./components/imageGrid";
 import { NasaData } from "./components/query";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { Button } from "@mui/material";
+import CachedIcon from "@mui/icons-material/Cached";
 const api_key = process.env.REACT_APP_NASA_KEY;
 
 const App = () => {
@@ -12,10 +13,11 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [page, setPage] = useState(1);
+  const [favs, setFavs] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    NasaData.getCuriosityMastPhotos()
+    NasaData.getCuriosityMastPhotos(page)
       .then((data) => {
         setData({ data });
         setIsLoading(false);
@@ -24,7 +26,7 @@ const App = () => {
         setHasError(true);
         setIsLoading(false);
       });
-  }, []);
+  }, [page]);
 
   const dark = createTheme({
     palette: {
@@ -37,12 +39,31 @@ const App = () => {
       <div className="App">
         <h1 className="title"> Spacestagram: Mars</h1>
 
-        {data.data !== undefined && isLoading === false ? (
-          <ImageGrid images={data.data.photos} />
+        {hasError ? (
+          <p> Sorry! There seems to be an error getting photos.</p>
         ) : (
-          "no data"
+          ""
+        )}
+
+        {isLoading ? (
+          <div>
+            <CachedIcon className="rotate" style={{ fontSize: "70px" }} />
+            <p> Loading... </p>
+          </div>
+        ) : data.data !== undefined && isLoading === false ? (
+          <ImageGrid
+            images={data.data.photos}
+            loadMore={() => setPage(page + 1)}
+          />
+        ) : (
+          <p>Oops we couldn't find the photos! ☹️</p>
         )}
       </div>
+
+      <Button variant="outlined" onClick={() => setPage(page + 1)}>
+        Load More
+      </Button>
+      {page}
     </ThemeProvider>
   );
 };

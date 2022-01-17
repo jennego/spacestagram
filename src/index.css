@@ -15,28 +15,52 @@ h5 {
   font-family: "Space Mono", monospace;
 }
 
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(359deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
 .info {
   display: flex;
   justify-content: space-evenly;
 }
 
-.avatar {
-  display: flex;
-  align-items: center;
+.overlay-container {
   position: absolute;
-  margin-top: 36vh;
+  right: 1rem;
+  top: 37vh;
+  z-index: 999;
 }
+
+/* .overlay-icon {
+  display: flex;
+  justify-self: flex-end;
+} */
 
 .image-size {
   height: 40vh;
-  max-width: 80vw;
+  /* max-width: 50vw; */
+  object-fit: contain;
 }
 
 .image-item {
   max-width: 80vh;
   border: 1px #fff solid;
   border-radius: 85px;
+  position: relative;
 }
+
+/* .image-item:hover {
+  border: 1px red solid;
+} */
 
 .MuiPaper-rounded.image-item {
   border-radius: 20px !important;

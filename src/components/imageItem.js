@@ -4,25 +4,33 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const ImageItem = (props, { image }) => {
   console.log(props);
   return (
     <div>
       <Card elevation={3} className="image-item" outlined={true}>
-        {/* <div className="avatar-container">
-          <div className="avatar">
-            <Avatar />
-            <span> Like </span>
-          </div>
-        </div> */}
+        <div style={{ background: "#000" }}>
+          <img
+            src={props.image.img_src}
+            className="image-size"
+            alt={`mars photo taken by the ${props.image.rover.name} on ${props.image.earth_date}`}
+          />
+        </div>
 
-        <CardMedia
+        {/* <CardMedia
           component="img"
           image={props.image.img_src}
           className="image-size"
           alt={`mars photo taken by the ${props.image.rover.name} on ${props.image.earth_date}`}
-        />
+        /> */}
+        <div className="overlay-container">
+          <div className="overlay-icon">
+            <FavoriteBorderIcon fontSize="large" style={{ color: "red" }} />
+          </div>
+        </div>
         <CardContent>
           <Grid container spacing={2} className="info">
             <Grid item>
