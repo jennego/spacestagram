@@ -1,6 +1,5 @@
+import { useState } from "react";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -9,6 +8,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import curiosity from "../avatars/rover-c.jpg";
 
 const ImageItem = (props) => {
+  const [hover, setHover] = useState(false);
+
   let isFaved = (id) => {
     if (props.favs.some((image) => image["id"] === id)) {
       return true;
@@ -18,7 +19,7 @@ const ImageItem = (props) => {
   };
 
   const useRoverImage = (rover) => {
-    if (rover === "") {
+    if (rover === "Curiosity") {
       return curiosity;
     }
   };
@@ -37,16 +38,32 @@ const ImageItem = (props) => {
         <div className="overlay-icon">
           {isFaved(props.image.id) ? (
             <FavoriteIcon
+              className="fav-icon"
               fontSize="large"
               style={{ color: "red" }}
               onClick={() => props.removeFav(props.image)}
             />
           ) : (
-            <FavoriteBorderIcon
-              fontSize="large"
-              style={{ color: "red" }}
-              onClick={() => props.addFav(props.image)}
-            />
+            <div
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              {hover ? (
+                <FavoriteIcon
+                  className="fav-icon-hover"
+                  fontSize="large"
+                  style={{ color: "red" }}
+                  onClick={() => props.addFav(props.image)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  className="fav-icon"
+                  fontSize="large"
+                  style={{ color: "red" }}
+                  onClick={() => props.addFav(props.image)}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -65,8 +82,8 @@ const ImageItem = (props) => {
           </Grid>
           <Grid item className="photo-date">
             Earth Date: {props.image.earth_date} <br />
-            Sol:{props.image.sol} <br />
-            Camera:{props.image.camera.full_name}
+            Sol: {props.image.sol} <br />
+            Camera: {props.image.camera.full_name}
           </Grid>
         </Grid>
       </CardContent>

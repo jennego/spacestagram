@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 const ImageGrid = (props) => {
   return (
     <div>
-      <Container maxWidth="xl">
+      <Container>
         <Grid container spacing={2}>
           {props.images.map((photo) => (
             <Grid item key={photo.id}>

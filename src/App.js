@@ -42,6 +42,11 @@ const App = () => {
     localStorage.setItem("favs", JSON.stringify(favs));
   }, [favs]);
 
+  const clearStorage = () => {
+    setFavs([]);
+    localStorage.clear();
+  };
+
   const dark = createTheme({
     palette: {
       mode: "dark",
@@ -58,7 +63,7 @@ const App = () => {
     // localStorage.setItem("favs", JSON.stringify(favs));
   };
 
-  console.log(favs);
+  console.log(favs.length);
 
   return (
     <ThemeProvider theme={dark}>
@@ -100,21 +105,29 @@ const App = () => {
           </div>
         ) : data.data !== undefined && isLoading === false ? (
           showFavs ? (
-            <div>
-              <ImageGrid
-                images={favs}
-                addFav={addFav}
-                removeFav={removeFav}
-                favs={favs}
-              />
-              <Button
-                variant="outlined"
-                color="warning"
-                onClick={() => localStorage.clear()}
-              >
-                Clear all favs
-              </Button>
-            </div>
+            favs.length > 0 ? (
+              <div>
+                <ImageGrid
+                  images={favs}
+                  addFav={addFav}
+                  removeFav={removeFav}
+                  favs={favs}
+                />
+                <Button
+                  variant="outlined"
+                  color="warning"
+                  onClick={clearStorage}
+                >
+                  Clear all favs
+                </Button>
+              </div>
+            ) : (
+              <p>
+                {" "}
+                You have no Favs. Go click the <Favorite fontSize="small" /> to
+                add some.
+              </p>
+            )
           ) : (
             <ImageGrid
               images={data.data.photos}
