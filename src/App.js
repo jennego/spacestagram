@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import Favorite from "@mui/icons-material/Favorite";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import Delete from "@mui/icons-material/Delete";
+
 const api_key = process.env.REACT_APP_NASA_KEY;
 
 const App = () => {
@@ -112,9 +114,11 @@ const App = () => {
                   favs={favs}
                 />
                 <Button
+                  startIcon={<Delete />}
                   variant="outlined"
                   color="warning"
                   onClick={clearStorage}
+                  style={{ marginTop: "1rem" }}
                 >
                   Clear all favs
                 </Button>
@@ -126,16 +130,18 @@ const App = () => {
                 add some.
               </p>
             )
-          ) : (
+          ) : data.data.photos.length > 0 ? (
             <ImageGrid
               images={data.data.photos}
               addFav={addFav}
               removeFav={removeFav}
               favs={favs}
             />
+          ) : (
+            <p>Oops, there are no photos! ☹️ </p>
           )
         ) : (
-          <p>Oops we couldn't find the photos! ☹️</p>
+          <p>Oops we couldn't find any photos! ☹️</p>
         )}
       </div>
 
