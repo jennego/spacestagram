@@ -5,8 +5,12 @@ import ImageItem from "./imageItem";
 const ImageGrid = (props) => {
   return (
     <div>
-      <Container>
-        <Grid container spacing={2}>
+      <Container maxWidth="xl">
+        <Grid
+          container
+          spacing={2}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           {props.images.map((photo) => (
             <Grid item key={photo.id}>
               <ImageItem

@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import ImageGrid from "./components/imageGrid";
@@ -7,8 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import Favorite from "@mui/icons-material/Favorite";
-import { padding } from "@mui/system";
-
+import GitHubIcon from "@mui/icons-material/GitHub";
 const api_key = process.env.REACT_APP_NASA_KEY;
 
 const App = () => {
@@ -161,6 +159,30 @@ const App = () => {
       ) : (
         ""
       )}
+      <div className="footer">
+        <div>
+          <p>Photos from NASA</p>
+          <p> Made with React, Material UI and NASA Mars Rover API </p>
+        </div>
+        <div>
+          Created by{" "}
+          <a href="https://jenniferchow.ca" target="_open" rel="noreferrer">
+            Jennifer Chow.
+          </a>
+          <a
+            href="https://github.com/jennego/spacestagram"
+            target="_open"
+            rel="noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <GitHubIcon fontSize="large" style={{ paddingRight: "0.2rem" }} />
+            <div>See Code</div>
+          </a>
+        </div>
+      </div>
     </ThemeProvider>
   );
 };

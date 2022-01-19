@@ -123,7 +123,7 @@ const ImageItem = (props) => {
           <img
             onClick={() => setOpen(true)}
             src={props.image.img_src}
-            className="image-size"
+            className="image-size card-image"
             alt={`mars photo taken by the ${props.image.rover.name} on ${props.image.earth_date}`}
           />
         </div>

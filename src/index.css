@@ -15,6 +15,14 @@ h5 {
   font-family: "Space Mono", monospace;
 }
 
+a {
+  color: skyblue;
+}
+
+a:hover {
+  color: 3372d6;
+}
+
 .title {
   font-size: 50px;
 }
@@ -46,12 +54,17 @@ h5 {
 
 .image-size {
   height: 41vh;
-  max-width: 90vw;
   object-fit: cover;
+  width: 100%;
+}
+
+.card-image:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 .image-item {
-  width: 45vh;
+  width: 50vh;
   border: 1px #fff solid;
   border-radius: 85px;
   position: relative;
@@ -88,4 +101,11 @@ h5 {
   padding-top: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+.footer {
+  padding: 4rem 5rem 1rem;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
 }
