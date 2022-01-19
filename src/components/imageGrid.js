@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ImageItem from "./imageItem";
-import Button from "@mui/material/Button";
 
 const ImageGrid = (props) => {
   return (

@@ -47,11 +47,11 @@ h5 {
 .image-size {
   height: 41vh;
   max-width: 90vw;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .image-item {
-  max-width: 80vh;
+  width: 45vh;
   border: 1px #fff solid;
   border-radius: 85px;
   position: relative;
