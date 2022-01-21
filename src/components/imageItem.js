@@ -80,7 +80,6 @@ const ImageItem = (props) => {
         <DialogContent style={{ background: "#000" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <FavHeart id={props.image.id} {...props} />
-
             <div
               style={{
                 display: "flex",
