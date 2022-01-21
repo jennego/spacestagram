@@ -18,5 +18,5 @@ npm start
 
 To build
 <code>
-npm build
+npm run build
 </code>
